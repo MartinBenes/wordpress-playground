@@ -1,8 +1,8 @@
 # WordPress Playground pro výuku
 
-[Spustit školní WordPress](https://benes.dev/wordpress-playground/?site-slug=skolni-web) · [Otevřít výchozí Playground](https://benes.dev/wordpress-playground/)
+[Spustit školní WordPress](https://benes.dev/wordpress-playground/?site-slug=skolni-web&language=cs_CZ&url=/wp-admin/) · [Otevřít výchozí Playground](https://benes.dev/wordpress-playground/)
 
-GitHub Pages tohoto repozitáře servírují oficiální rozhraní WordPress Playground, PHP ve WebAssembly, WordPress a ovladač SQLite. Školní odkaz používá pojmenovaný web `skolni-web` v úložišti prohlížeče. Každý student pracuje ve vlastním profilu. Pro přesun na jiný počítač použij v panelu Playgroundu **Export** a stáhni ZIP.
+GitHub Pages tohoto repozitáře servírují oficiální rozhraní WordPress Playground, PHP ve WebAssembly, WordPress a ovladač SQLite. Školní odkaz používá pojmenovaný web `skolni-web` v úložišti prohlížeče. Po prvním spuštění počkej, až horní lišta zobrazí **Saved**. Stejný odkaz pak ve stejném profilu prohlížeče znovu otevře tvůj web. Pro přesun na jiný počítač použij v panelu Playgroundu **Export** a stáhni ZIP.
 
 ## Sestavení a nasazení
 

@@ -35,6 +35,10 @@ def patch_js(code, base):
         # homepage separately. Cache the project's own homepage for offline use.
         code = re.sub(r'\["/",(\.\.\.await\(await [\w$]+\("[^"]*assets-required-for-offline-mode\.json"\)\)\.json\(\)\])',
                       lambda m: f'["{base}/",' + m[1], code)
+        # Gutenberg's document iframe must navigate inside this Playground's
+        # service worker scope, including the active WordPress site identifier.
+        code = code.replace("'/wp-includes/empty.html' +",
+                            f"location.pathname.split('/').slice(0,{offset+1}).join('/') + '/wp-includes/empty.html' +", 1) if "const emptyHtmlUrl =\n\t\t\t'/wp-includes/empty.html'" in code else code
         # The network-first shell route is the project directory.
         code = re.sub(r'((?P<u>[\w$]+)\.pathname==="[^"]*api.html"\|\|(?P=u)\.pathname===)"/"',
                       lambda m: m[1] + f'"{base}/"', code)
@@ -42,6 +46,12 @@ def patch_js(code, base):
     # scoped URL back into the virtual filesystem and importing a backup.
     code = code.replace("'#^/scope:[^/]+#'", f"'#^(?:{base})?/scope:[^/]+#'")
     code = code.replace(r'.match(/\/scope:[^/]+\/?/)', '.match(/(?:' + base_in_regex + r')?\/scope:[^/]+\/?/)')
+    # Both the service worker and its PHP-injected thumbnail bridge validate
+    # the renderer path. The embedded script's slash escapes are doubled.
+    for separator in (r'\/', r'\\/'):
+        renderer_start = '/^' + separator + 'capture-site-thumbnail-'
+        project_renderer = '/^' + base.replace('/', separator) + separator + 'capture-site-thumbnail-'
+        code = code.replace(renderer_start, project_renderer)
     # This constant feeds the static archive and manifest URL builders.
     code = code.replace('releaseBase="/"', f'releaseBase="{base}/"')
     # The portable layout has no /releases/<id>/ and no root-host bridge.
