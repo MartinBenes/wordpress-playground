@@ -1,0 +1,42 @@
+name: Deploy WordPress Playground to Pages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download the official self-hosting distribution
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download upstream-6ae629d --pattern wasm-wordpress-net.tar.gz
+          sha256sum --check scripts/upstream.sha256
+          mkdir upstream
+          tar -xzf wasm-wordpress-net.tar.gz --strip-components=4 -C upstream dist/packages/playground/wasm-wordpress-net
+      - name: Prepare project paths
+        run: python3 scripts/prepare.py upstream dist
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+          include-hidden-files: true
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - name: Publish
+        id: pages
+        uses: actions/deploy-pages@v4
