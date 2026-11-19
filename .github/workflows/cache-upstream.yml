@@ -1,0 +1,20 @@
+name: Archive official Playground build
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preserve the verified upstream artifact for future deployments
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh api repos/WordPress/wordpress-playground/actions/artifacts/14454537714/zip > artifact.zip
+          echo 'd3179b8054b7eed48195bcb92118a45aad5801593717d3be6a46f3052f0cbcaa  artifact.zip' | sha256sum --check
+          unzip -j artifact.zip wasm-wordpress-net.tar.gz
+          gh release create upstream-6ae629d wasm-wordpress-net.tar.gz \
+            --target "$GITHUB_SHA" --title 'Official WordPress Playground build 6ae629d' \
+            --notes 'Unmodified self-hosting distribution from https://github.com/WordPress/wordpress-playground/actions/runs/44362016932 .'
