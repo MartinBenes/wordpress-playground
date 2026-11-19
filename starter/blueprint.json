@@ -1,0 +1,27 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/wp-admin/site-editor.php",
+  "login": true,
+  "siteOptions": {
+    "blogname": "Můj web",
+    "blogdescription": ""
+  },
+  "steps": [
+    {
+      "step": "setSiteLanguage",
+      "language": "cs_CZ"
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "url",
+        "url": "https://benes.dev/wordpress-playground/platno/volne-platno.zip"
+      },
+      "options": { "activate": true }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire_once '/wordpress/wp-load.php';\n$page = get_page_by_path('uvod');\n$id = $page ? $page->ID : wp_insert_post(array('post_type' => 'page', 'post_status' => 'publish', 'post_title' => 'Úvod', 'post_name' => 'uvod'), true);\nif (is_wp_error($id)) { throw new RuntimeException($id->get_error_message()); }\nupdate_post_meta($id, '_wp_page_template', 'bez-nadpisu');\nupdate_option('page_on_front', $id);\nupdate_option('show_on_front', 'page');"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.6/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": true,
+    "layout": {
+      "contentSize": "44rem",
+      "wideSize": "74rem"
+    },
+    "color": {
+      "palette": [
+        { "slug": "papir", "name": "Papír", "color": "#ffffff" },
+        { "slug": "inkoust", "name": "Inkoust", "color": "#1d2630" },
+        { "slug": "bridlice", "name": "Břidlice", "color": "#475569" },
+        { "slug": "mlha", "name": "Mlha", "color": "#e4e8ec" },
+        { "slug": "modr", "name": "Modř", "color": "#264ba0" }
+      ]
+    },
+    "typography": {
+      "fluid": true,
+      "fontFamilies": [
+        { "slug": "bezpatkove", "name": "Bezpatkové", "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" },
+        { "slug": "patkove", "name": "Patkové", "fontFamily": "'Source Serif 4', Georgia, serif" }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "var:preset|color|papir",
+      "text": "var:preset|color|inkoust"
+    },
+    "typography": {
+      "fontFamily": "var:preset|font-family|bezpatkove",
+      "fontSize": "1.125rem",
+      "lineHeight": "1.6"
+    },
+    "spacing": {
+      "blockGap": "1.5rem",
+      "padding": {
+        "top": "0",
+        "right": "clamp(1rem, 4vw, 3rem)",
+        "bottom": "0",
+        "left": "clamp(1rem, 4vw, 3rem)"
+      }
+    },
+    "elements": {
+      "heading": { "typography": { "fontWeight": "650", "lineHeight": "1.18" } },
+      "h1": { "typography": { "fontSize": "clamp(2rem, 5vw, 3.5rem)" } },
+      "h2": { "typography": { "fontSize": "clamp(1.5rem, 3.5vw, 2.25rem)" } },
+      "link": { "color": { "text": "var:preset|color|modr" } },
+      "button": {
+        "color": { "background": "var:preset|color|modr", "text": "var:preset|color|papir" },
+        "border": { "radius": "0.3rem" }
+      }
+    }
+  },
+  "customTemplates": [
+    { "name": "bez-nadpisu", "title": "Stránka bez nadpisu", "postTypes": ["page"] }
+  ],
+  "templateParts": [
+    { "name": "header", "title": "Záhlaví", "area": "header" },
+    { "name": "footer", "title": "Zápatí", "area": "footer" }
+  ]
+}

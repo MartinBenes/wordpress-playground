@@ -57,12 +57,14 @@
     login: /^(?:yes|no)$/,
     networking: /^(?:yes|no)$/,
     multisite: /^(?:yes|no)$/,
-    url: /^(?:\/|\/wp-admin(?:\/?|\/(?:index|edit|post-new|upload|themes|plugins)\.php(?:\?post_type=(?:page|post))?))$/,
+    url: /^(?:\/|\/wp-admin(?:\/?|\/(?:index|edit|post-new|upload|themes|plugins|site-editor)\.php(?:\?post_type=(?:page|post))?))$/,
   };
 
   function plainSetup(url) {
     if (url.hash) return false;
+    const starterBlueprint = new URL(base + "platno/blueprint.json", location.origin).href;
     for (const [key, value] of url.searchParams) {
+      if (key === "blueprint-url" && value === starterBlueprint) continue;
       if (!Object.hasOwn(safeOptions, key) || !safeOptions[key].test(value)) return false;
     }
     return true;

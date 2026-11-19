@@ -4,6 +4,10 @@
 
 GitHub Pages tohoto repozitáře servírují oficiální rozhraní WordPress Playground, PHP ve WebAssembly, WordPress a ovladač SQLite. Školní odkaz používá pojmenovaný web `skolni-web` v úložišti prohlížeče. Po prvním spuštění počkej, až horní lišta zobrazí **Saved**. Stejný odkaz pak ve stejném profilu prohlížeče znovu otevře tvůj web. Pro přesun na jiný počítač použij v panelu Playgroundu **Export** a stáhni ZIP.
 
+## Volné plátno
+
+[Otevřít editor webu s blokovou šablonou](https://benes.dev/wordpress-playground/platno/). První otevření vytvoří pojmenovaný web `volne-platno`, aktivuje šablonu a připraví prázdnou úvodní stránku. Stejný odkaz později otevře uloženou práci v daném profilu prohlížeče. V editoru lze měnit i záhlaví, navigaci, zápatí a styly. [Šablonu lze také stáhnout jako ZIP](https://benes.dev/wordpress-playground/platno/volne-platno.zip).
+
 ## Sestavení a nasazení
 
 Základem je oficiální [sestavení pro vlastní hosting](https://github.com/WordPress/wordpress-playground/actions/runs/44362016932) z [revize 6ae629d](https://github.com/WordPress/wordpress-playground/tree/6ae629de715f159d8a00e95b6138d33406a45f7f). Původní archiv je uložený jako [vydání tohoto repozitáře](https://github.com/MartinBenes/wordpress-playground/releases/tag/upstream-6ae629d). Workflow ověřuje SHA-256, připraví adresář pro Pages a publikuje změny větve `main`.
